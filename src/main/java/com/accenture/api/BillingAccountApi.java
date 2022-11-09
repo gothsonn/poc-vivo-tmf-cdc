@@ -6,13 +6,10 @@
 package com.accenture.api;
 
 import com.accenture.model.BillingAccountCreate;
-import com.accenture.model.BillingAccountUpdate;
-import com.accenture.model.Error;
 import com.accenture.model.BillingAccount;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +21,7 @@ import java.util.List;
 
 @Validated
 @Api(value = "billingAccount", description = "the billingAccount API")
-@RequestMapping(value = "/tmf-api/accountManagement/v4/")
+@RequestMapping(value = "/accountManagement")
 public interface BillingAccountApi {
 
     @ApiOperation(value = "Creates a BillingAccount", nickname = "createBillingAccount", notes = "This operation creates a BillingAccount entity.", response = BillingAccount.class, tags={ "billingAccount", })
@@ -40,28 +37,13 @@ public interface BillingAccountApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<BillingAccount> createBillingAccount(@ApiParam(value = "The BillingAccount to be created" ,required=true )  @Valid @RequestBody BillingAccountCreate billingAccount);
-
-
-    @ApiOperation(value = "Deletes a BillingAccount", nickname = "deleteBillingAccount", notes = "This operation deletes a BillingAccount entity.", tags={ "billingAccount", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
-    @RequestMapping(value = "/billingAccount/{id}",
-        produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
-        method = RequestMethod.DELETE)
-    ResponseEntity<Void> deleteBillingAccount(@ApiParam(value = "Identifier of the BillingAccount",required=true) @PathVariable("id") String id);
-
+    ResponseEntity<BillingAccount> createBillingAccount(
+            @ApiParam(value = "The BillingAccount to be created" ,required=true )
+            @Valid @RequestBody BillingAccountCreate billingAccount
+    );
 
     @ApiOperation(value = "List or find BillingAccount objects", nickname = "listBillingAccount", notes = "This operation list or find BillingAccount entities", response = BillingAccount.class, responseContainer = "List", tags={ "billingAccount", })
-    @ApiResponses(value = { 
+    @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Success", response = BillingAccount.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
@@ -71,43 +53,9 @@ public interface BillingAccountApi {
         @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/billingAccount",
-        produces = { "application/json;charset=utf-8" }, 
+        produces = { "application/json;charset=utf-8" },
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     ResponseEntity<List<BillingAccount>> listBillingAccount(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit);
-
-
-    @ApiOperation(value = "Updates partially a BillingAccount", nickname = "patchBillingAccount", notes = "This operation updates partially a BillingAccount entity.", response = BillingAccount.class, tags={ "billingAccount", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Updated", response = BillingAccount.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
-    @RequestMapping(value = "/billingAccount/{id}",
-        produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
-        method = RequestMethod.PATCH)
-    ResponseEntity<BillingAccount> patchBillingAccount(@ApiParam(value = "Identifier of the BillingAccount",required=true) @PathVariable("id") String id,@ApiParam(value = "The BillingAccount to be updated" ,required=true )  @Valid @RequestBody BillingAccountUpdate billingAccount);
-
-
-    @ApiOperation(value = "Retrieves a BillingAccount by ID", nickname = "retrieveBillingAccount", notes = "This operation retrieves a BillingAccount entity. Attribute selection is enabled for all first level attributes.", response = BillingAccount.class, tags={ "billingAccount", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = BillingAccount.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
-    @RequestMapping(value = "/billingAccount/{id}",
-        produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
-        method = RequestMethod.GET)
-    ResponseEntity<BillingAccount> retrieveBillingAccount(@ApiParam(value = "Identifier of the BillingAccount",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields);
 
 }

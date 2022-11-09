@@ -35,23 +35,20 @@ public class BillingAccountApiController implements BillingAccountApi {
         this.request = request;
     }
 
-    public ResponseEntity<BillingAccount> createBillingAccount(@ApiParam(value = "The BillingAccount to be created" ,required=true )  @Valid @RequestBody BillingAccountCreate billingAccount) {
+    public ResponseEntity<BillingAccount> createBillingAccount(
+            @ApiParam(value = "The BillingAccount to be created" ,required=true )
+            @Valid @RequestBody BillingAccountCreate billingAccount
+    ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<BillingAccount>(objectMapper.readValue("{\"empty\": false}", BillingAccount.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<BillingAccount>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            var aux = objectMapper.convertValue(billingAccount, BillingAccount.class);
+
+
+            //publicar aqui....
+            return new ResponseEntity<BillingAccount>(aux, HttpStatus.CREATED);
         }
 
         return new ResponseEntity<BillingAccount>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-    public ResponseEntity<Void> deleteBillingAccount(@ApiParam(value = "Identifier of the BillingAccount",required=true) @PathVariable("id") String id) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<List<BillingAccount>> listBillingAccount(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
@@ -66,34 +63,6 @@ public class BillingAccountApiController implements BillingAccountApi {
         }
 
         return new ResponseEntity<List<BillingAccount>>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-    public ResponseEntity<BillingAccount> patchBillingAccount(@ApiParam(value = "Identifier of the BillingAccount",required=true) @PathVariable("id") String id,@ApiParam(value = "The BillingAccount to be updated" ,required=true )  @Valid @RequestBody BillingAccountUpdate billingAccount) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<BillingAccount>(objectMapper.readValue("{\"empty\": false}", BillingAccount.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<BillingAccount>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<BillingAccount>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-    public ResponseEntity<BillingAccount> retrieveBillingAccount(@ApiParam(value = "Identifier of the BillingAccount",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<BillingAccount>(objectMapper.readValue("{\"empty\": false}", BillingAccount.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<BillingAccount>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<BillingAccount>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 }
