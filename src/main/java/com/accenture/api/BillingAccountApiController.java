@@ -1,7 +1,7 @@
 package com.accenture.api;
 
+import com.accenture.api.synchronizer.CdcSynchronizer;
 import com.accenture.model.BillingAccountCreate;
-import com.accenture.model.BillingAccountUpdate;
 import com.accenture.model.BillingAccount;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,6 +17,7 @@ import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-11-06T21:16:01.493Z")
 
 @Controller
@@ -29,29 +29,38 @@ public class BillingAccountApiController implements BillingAccountApi {
 
     private final HttpServletRequest request;
 
+
     @org.springframework.beans.factory.annotation.Autowired
     public BillingAccountApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
         this.request = request;
     }
 
-    public ResponseEntity<BillingAccount> createBillingAccount(
+    public ResponseEntity<BillingAccount> createBillingAccount (
             @ApiParam(value = "The BillingAccount to be created" ,required=true )
-            @Valid @RequestBody BillingAccountCreate billingAccount
+            @Valid
+            @RequestBody BillingAccountCreate billingAccount
     ) {
+
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            var aux = objectMapper.convertValue(billingAccount, BillingAccount.class);
+            var messageCDC = objectMapper.convertValue(billingAccount, BillingAccount.class);
+            CdcSynchronizer synchronize = new CdcSynchronizer();
+            synchronize.synchronize(messageCDC);
 
-
-            //publicar aqui....
-            return new ResponseEntity<BillingAccount>(aux, HttpStatus.CREATED);
+            return new ResponseEntity<BillingAccount>(messageCDC, HttpStatus.CREATED);
         }
-
         return new ResponseEntity<BillingAccount>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<List<BillingAccount>> listBillingAccount(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+    public ResponseEntity<List<BillingAccount>> listBillingAccount(
+            @ApiParam(value = "Comma-separated properties to be provided in response")
+            @Valid @RequestParam(value = "fields", required = false) String fields,
+            @ApiParam(value = "Requested index for start of resources to be provided in response")
+            @Valid @RequestParam(value = "offset", required = false) Integer offset,
+            @ApiParam(value = "Requested number of resources to be provided in response")
+            @Valid @RequestParam(value = "limit", required = false) Integer limit
+    ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {

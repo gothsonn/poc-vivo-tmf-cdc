@@ -24,19 +24,21 @@ import java.util.List;
 @RequestMapping(value = "/accountManagement")
 public interface BillingAccountApi {
 
+    @RequestMapping(value = "/billingAccount",
+            produces = { "application/json;charset=utf-8" },
+            consumes = { "application/json;charset=utf-8" },
+            method = RequestMethod.POST
+    )
     @ApiOperation(value = "Creates a BillingAccount", nickname = "createBillingAccount", notes = "This operation creates a BillingAccount entity.", response = BillingAccount.class, tags={ "billingAccount", })
-    @ApiResponses(value = { 
+    @ApiResponses(value = {
         @ApiResponse(code = 201, message = "Created", response = BillingAccount.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
         @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
         @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
         @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
-    @RequestMapping(value = "/billingAccount",
-        produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
-        method = RequestMethod.POST)
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) }
+    )
     ResponseEntity<BillingAccount> createBillingAccount(
             @ApiParam(value = "The BillingAccount to be created" ,required=true )
             @Valid @RequestBody BillingAccountCreate billingAccount
