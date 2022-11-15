@@ -51,9 +51,9 @@ public class BillingAccountApiController implements BillingAccountApi {
         if (accept != null && accept.contains("application/json")) {
             var data = objectMapper.convertValue(billingAccount, BillingAccount.class);
             data.setId(UUID.randomUUID().toString());
-            var aux = calledNewEndpoint.findById(data);
+            var response = calledNewEndpoint.findById(data);
 
-            return new ResponseEntity<BillingAccount>(aux, HttpStatus.CREATED);
+            return new ResponseEntity<BillingAccount>(response, HttpStatus.CREATED);
         }
         return new ResponseEntity<BillingAccount>(HttpStatus.NOT_IMPLEMENTED);
     }
