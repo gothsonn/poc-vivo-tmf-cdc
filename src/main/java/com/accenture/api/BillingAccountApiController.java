@@ -51,13 +51,7 @@ public class BillingAccountApiController implements BillingAccountApi {
         if (accept != null && accept.contains("application/json")) {
             var data = objectMapper.convertValue(billingAccount, BillingAccount.class);
             data.setId(UUID.randomUUID().toString());
-            System.out.print("olha aqui o data ====>>");
-            System.out.println(data);
             var aux = calledNewEndpoint.findById(data);
-            System.out.println("");
-            System.out.println(aux);
-            // fazer a chamada tipo post para o endpoint o fica o producer(rafael vai me passa juntamento com payload)
-            // retrno do post rentor no respontEntity
 
             return new ResponseEntity<BillingAccount>(aux, HttpStatus.CREATED);
         }
