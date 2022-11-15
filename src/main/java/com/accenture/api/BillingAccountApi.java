@@ -58,6 +58,11 @@ public interface BillingAccountApi {
         produces = { "application/json;charset=utf-8" },
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
-    ResponseEntity<List<BillingAccount>> listBillingAccount(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit);
-
+    ResponseEntity<List<BillingAccount>> listBillingAccount(
+        @ApiParam(value = "Comma-separated properties to be provided in response")
+        @Valid @RequestParam(value = "fields", required = false) String fields,
+        @ApiParam(value = "Requested index for start of resources to be provided in response")
+        @Valid @RequestParam(value = "offset", required = false) Integer offset,
+        @ApiParam(value = "Requested number of resources to be provided in response")
+        @Valid @RequestParam(value = "limit", required = false) Integer limit);
 }

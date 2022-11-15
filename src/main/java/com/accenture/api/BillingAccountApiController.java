@@ -1,8 +1,8 @@
 package com.accenture.api;
 
-import com.accenture.api.synchronizer.CdcSynchronizer;
 import com.accenture.model.BillingAccountCreate;
 import com.accenture.model.BillingAccount;
+import com.accenture.repository.CalledNewEndpointRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -12,11 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-11-06T21:16:01.493Z")
 
@@ -29,26 +29,37 @@ public class BillingAccountApiController implements BillingAccountApi {
 
     private final HttpServletRequest request;
 
+    private final CalledNewEndpointRepository calledNewEndpoint;
+
 
     @org.springframework.beans.factory.annotation.Autowired
-    public BillingAccountApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    public BillingAccountApiController(
+            ObjectMapper objectMapper,
+            HttpServletRequest request,
+            CalledNewEndpointRepository calledNewEndpoint
+    ) {
         this.objectMapper = objectMapper;
         this.request = request;
+        this.calledNewEndpoint = calledNewEndpoint;
     }
 
     public ResponseEntity<BillingAccount> createBillingAccount (
-            @ApiParam(value = "The BillingAccount to be created" ,required=true )
-            @Valid
-            @RequestBody BillingAccountCreate billingAccount
+            @ApiParam(value = "The BillingAccount to be created", required=true)
+            @Valid @RequestBody BillingAccountCreate billingAccount
     ) {
-
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            var messageCDC = objectMapper.convertValue(billingAccount, BillingAccount.class);
-            CdcSynchronizer synchronize = new CdcSynchronizer();
-            synchronize.synchronize(messageCDC);
+            var data = objectMapper.convertValue(billingAccount, BillingAccount.class);
+            data.setId(UUID.randomUUID().toString());
+            System.out.print("olha aqui o data ====>>");
+            System.out.println(data);
+            var aux = calledNewEndpoint.findById(data);
+            System.out.println("");
+            System.out.println(aux);
+            // fazer a chamada tipo post para o endpoint o fica o producer(rafael vai me passa juntamento com payload)
+            // retrno do post rentor no respontEntity
 
-            return new ResponseEntity<BillingAccount>(messageCDC, HttpStatus.CREATED);
+            return new ResponseEntity<BillingAccount>(aux, HttpStatus.CREATED);
         }
         return new ResponseEntity<BillingAccount>(HttpStatus.NOT_IMPLEMENTED);
     }

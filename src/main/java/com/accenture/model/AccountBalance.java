@@ -46,8 +46,7 @@ public class AccountBalance   {
   **/
   @ApiModelProperty(required = true, value = "Type of the balance : deposit balance, disputed balance, loyalty balance, receivable balance...")
   @NotNull
-
-
+  
   public String getBalanceType() {
     return balanceType;
   }

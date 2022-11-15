@@ -47,6 +47,5 @@ public class PocVivoTmfCdc implements CommandLineRunner {
         public int getExitCode() {
             return 10;
         }
-
     }
 }
