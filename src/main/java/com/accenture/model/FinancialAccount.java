@@ -1,26 +1,26 @@
 package com.accenture.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+import java.time.OffsetDateTime;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.util.Objects;
 
 /**
- * A party account used for billing purposes. It includes a description of the bill structure (frequency, presentation media, format and so on). It is a specialization of entity PartyAccount.
+ * An account of money owed by a party to another entity in exchange for goods or services that have been delivered or used. A financial (account receivable account/account payable) aggregates the amounts of one or more party accounts (billing or settlement) owned by a given party. It is a specialization of entity Account.
  */
-@ApiModel(description = "A party account used for billing purposes. It includes a description of the bill structure (frequency, presentation media, format and so on). It is a specialization of entity PartyAccount.")
+@ApiModel(description = "An account of money owed by a party to another entity in exchange for goods or services that have been delivered or used. A financial (account receivable account/account payable) aggregates the amounts of one or more party accounts (billing or settlement) owned by a given party. It is a specialization of entity Account.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-11-06T21:16:01.493Z")
 
 
-public class BillingAccount   {
+public class FinancialAccount {
   @JsonProperty("id")
   private String id = null;
 
@@ -39,9 +39,6 @@ public class BillingAccount   {
   @JsonProperty("name")
   private String name = null;
 
-  @JsonProperty("paymentStatus")
-  private String paymentStatus = null;
-
   @JsonProperty("state")
   private String state = null;
 
@@ -53,9 +50,6 @@ public class BillingAccount   {
   @Valid
   private List<AccountRelationship> accountRelationship = null;
 
-  @JsonProperty("billStructure")
-  private BillStructure billStructure = null;
-
   @JsonProperty("contact")
   @Valid
   private List<Contact> contact = null;
@@ -63,19 +57,9 @@ public class BillingAccount   {
   @JsonProperty("creditLimit")
   private Money creditLimit = null;
 
-  @JsonProperty("defaultPaymentMethod")
-  private PaymentMethodRef defaultPaymentMethod = null;
-
-  @JsonProperty("financialAccount")
-  private FinancialAccountRef financialAccount = null;
-
-  @JsonProperty("paymentPlan")
-  @Valid
-  private List<PaymentPlan> paymentPlan = null;
-
   @JsonProperty("relatedParty")
   @Valid
-  private List<RelatedParty> relatedParty = new ArrayList<RelatedParty>();
+  private List<RelatedParty> relatedParty = null;
 
   @JsonProperty("taxExemption")
   @Valid
@@ -90,7 +74,7 @@ public class BillingAccount   {
   @JsonProperty("@type")
   private String type = null;
 
-  public BillingAccount id(String id) {
+  public FinancialAccount id(String id) {
     this.id = id;
     return this;
   }
@@ -110,7 +94,7 @@ public class BillingAccount   {
     this.id = id;
   }
 
-  public BillingAccount href(String href) {
+  public FinancialAccount href(String href) {
     this.href = href;
     return this;
   }
@@ -130,7 +114,7 @@ public class BillingAccount   {
     this.href = href;
   }
 
-  public BillingAccount accountType(String accountType) {
+  public FinancialAccount accountType(String accountType) {
     this.accountType = accountType;
     return this;
   }
@@ -150,7 +134,7 @@ public class BillingAccount   {
     this.accountType = accountType;
   }
 
-  public BillingAccount description(String description) {
+  public FinancialAccount description(String description) {
     this.description = description;
     return this;
   }
@@ -170,7 +154,7 @@ public class BillingAccount   {
     this.description = description;
   }
 
-  public BillingAccount lastModified(OffsetDateTime lastModified) {
+  public FinancialAccount lastModified(OffsetDateTime lastModified) {
     this.lastModified = lastModified;
     return this;
   }
@@ -191,7 +175,7 @@ public class BillingAccount   {
     this.lastModified = lastModified;
   }
 
-  public BillingAccount name(String name) {
+  public FinancialAccount name(String name) {
     this.name = name;
     return this;
   }
@@ -212,27 +196,7 @@ public class BillingAccount   {
     this.name = name;
   }
 
-  public BillingAccount paymentStatus(String paymentStatus) {
-    this.paymentStatus = paymentStatus;
-    return this;
-  }
-
-  /**
-   * The condition of the account, such as due, paid, in arrears.
-   * @return paymentStatus
-  **/
-  @ApiModelProperty(value = "The condition of the account, such as due, paid, in arrears.")
-
-
-  public String getPaymentStatus() {
-    return paymentStatus;
-  }
-
-  public void setPaymentStatus(String paymentStatus) {
-    this.paymentStatus = paymentStatus;
-  }
-
-  public BillingAccount state(String state) {
+  public FinancialAccount state(String state) {
     this.state = state;
     return this;
   }
@@ -252,12 +216,12 @@ public class BillingAccount   {
     this.state = state;
   }
 
-  public BillingAccount accountBalance(List<AccountBalance> accountBalance) {
+  public FinancialAccount accountBalance(List<AccountBalance> accountBalance) {
     this.accountBalance = accountBalance;
     return this;
   }
 
-  public BillingAccount addAccountBalanceItem(AccountBalance accountBalanceItem) {
+  public FinancialAccount addAccountBalanceItem(AccountBalance accountBalanceItem) {
     if (this.accountBalance == null) {
       this.accountBalance = new ArrayList<AccountBalance>();
     }
@@ -281,12 +245,12 @@ public class BillingAccount   {
     this.accountBalance = accountBalance;
   }
 
-  public BillingAccount accountRelationship(List<AccountRelationship> accountRelationship) {
+  public FinancialAccount accountRelationship(List<AccountRelationship> accountRelationship) {
     this.accountRelationship = accountRelationship;
     return this;
   }
 
-  public BillingAccount addAccountRelationshipItem(AccountRelationship accountRelationshipItem) {
+  public FinancialAccount addAccountRelationshipItem(AccountRelationship accountRelationshipItem) {
     if (this.accountRelationship == null) {
       this.accountRelationship = new ArrayList<AccountRelationship>();
     }
@@ -310,33 +274,12 @@ public class BillingAccount   {
     this.accountRelationship = accountRelationship;
   }
 
-  public BillingAccount billStructure(BillStructure billStructure) {
-    this.billStructure = billStructure;
-    return this;
-  }
-
-  /**
-   * Get billStructure
-   * @return billStructure
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public BillStructure getBillStructure() {
-    return billStructure;
-  }
-
-  public void setBillStructure(BillStructure billStructure) {
-    this.billStructure = billStructure;
-  }
-
-  public BillingAccount contact(List<Contact> contact) {
+  public FinancialAccount contact(List<Contact> contact) {
     this.contact = contact;
     return this;
   }
 
-  public BillingAccount addContactItem(Contact contactItem) {
+  public FinancialAccount addContactItem(Contact contactItem) {
     if (this.contact == null) {
       this.contact = new ArrayList<Contact>();
     }
@@ -360,7 +303,7 @@ public class BillingAccount   {
     this.contact = contact;
   }
 
-  public BillingAccount creditLimit(Money creditLimit) {
+  public FinancialAccount creditLimit(Money creditLimit) {
     this.creditLimit = creditLimit;
     return this;
   }
@@ -381,83 +324,15 @@ public class BillingAccount   {
     this.creditLimit = creditLimit;
   }
 
-  public BillingAccount defaultPaymentMethod(PaymentMethodRef defaultPaymentMethod) {
-    this.defaultPaymentMethod = defaultPaymentMethod;
-    return this;
-  }
-
-  /**
-   * Get defaultPaymentMethod
-   * @return defaultPaymentMethod
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public PaymentMethodRef getDefaultPaymentMethod() {
-    return defaultPaymentMethod;
-  }
-
-  public void setDefaultPaymentMethod(PaymentMethodRef defaultPaymentMethod) {
-    this.defaultPaymentMethod = defaultPaymentMethod;
-  }
-
-  public BillingAccount financialAccount(FinancialAccountRef financialAccount) {
-    this.financialAccount = financialAccount;
-    return this;
-  }
-
-  /**
-   * Get financialAccount
-   * @return financialAccount
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public FinancialAccountRef getFinancialAccount() {
-    return financialAccount;
-  }
-
-  public void setFinancialAccount(FinancialAccountRef financialAccount) {
-    this.financialAccount = financialAccount;
-  }
-
-  public BillingAccount paymentPlan(List<PaymentPlan> paymentPlan) {
-    this.paymentPlan = paymentPlan;
-    return this;
-  }
-
-  public BillingAccount addPaymentPlanItem(PaymentPlan paymentPlanItem) {
-    if (this.paymentPlan == null) {
-      this.paymentPlan = new ArrayList<PaymentPlan>();
-    }
-    this.paymentPlan.add(paymentPlanItem);
-    return this;
-  }
-
-  /**
-   * Get paymentPlan
-   * @return paymentPlan
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public List<PaymentPlan> getPaymentPlan() {
-    return paymentPlan;
-  }
-
-  public void setPaymentPlan(List<PaymentPlan> paymentPlan) {
-    this.paymentPlan = paymentPlan;
-  }
-
-  public BillingAccount relatedParty(List<RelatedParty> relatedParty) {
+  public FinancialAccount relatedParty(List<RelatedParty> relatedParty) {
     this.relatedParty = relatedParty;
     return this;
   }
 
-  public BillingAccount addRelatedPartyItem(RelatedParty relatedPartyItem) {
+  public FinancialAccount addRelatedPartyItem(RelatedParty relatedPartyItem) {
+    if (this.relatedParty == null) {
+      this.relatedParty = new ArrayList<RelatedParty>();
+    }
     this.relatedParty.add(relatedPartyItem);
     return this;
   }
@@ -466,11 +341,10 @@ public class BillingAccount   {
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+  @ApiModelProperty(value = "")
 
   @Valid
-@Size(min=1) 
+
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
   }
@@ -479,12 +353,12 @@ public class BillingAccount   {
     this.relatedParty = relatedParty;
   }
 
-  public BillingAccount taxExemption(List<AccountTaxExemption> taxExemption) {
+  public FinancialAccount taxExemption(List<AccountTaxExemption> taxExemption) {
     this.taxExemption = taxExemption;
     return this;
   }
 
-  public BillingAccount addTaxExemptionItem(AccountTaxExemption taxExemptionItem) {
+  public FinancialAccount addTaxExemptionItem(AccountTaxExemption taxExemptionItem) {
     if (this.taxExemption == null) {
       this.taxExemption = new ArrayList<AccountTaxExemption>();
     }
@@ -508,7 +382,7 @@ public class BillingAccount   {
     this.taxExemption = taxExemption;
   }
 
-  public BillingAccount baseType(String baseType) {
+  public FinancialAccount baseType(String baseType) {
     this.baseType = baseType;
     return this;
   }
@@ -528,7 +402,7 @@ public class BillingAccount   {
     this.baseType = baseType;
   }
 
-  public BillingAccount schemaLocation(String schemaLocation) {
+  public FinancialAccount schemaLocation(String schemaLocation) {
     this.schemaLocation = schemaLocation;
     return this;
   }
@@ -548,7 +422,7 @@ public class BillingAccount   {
     this.schemaLocation = schemaLocation;
   }
 
-  public BillingAccount type(String type) {
+  public FinancialAccount type(String type) {
     this.type = type;
     return this;
   }
@@ -570,46 +444,41 @@ public class BillingAccount   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BillingAccount billingAccount = (BillingAccount) o;
-    return Objects.equals(this.id, billingAccount.id) &&
-        Objects.equals(this.href, billingAccount.href) &&
-        Objects.equals(this.accountType, billingAccount.accountType) &&
-        Objects.equals(this.description, billingAccount.description) &&
-        Objects.equals(this.lastModified, billingAccount.lastModified) &&
-        Objects.equals(this.name, billingAccount.name) &&
-        Objects.equals(this.paymentStatus, billingAccount.paymentStatus) &&
-        Objects.equals(this.state, billingAccount.state) &&
-        Objects.equals(this.accountBalance, billingAccount.accountBalance) &&
-        Objects.equals(this.accountRelationship, billingAccount.accountRelationship) &&
-        Objects.equals(this.billStructure, billingAccount.billStructure) &&
-        Objects.equals(this.contact, billingAccount.contact) &&
-        Objects.equals(this.creditLimit, billingAccount.creditLimit) &&
-        Objects.equals(this.defaultPaymentMethod, billingAccount.defaultPaymentMethod) &&
-        Objects.equals(this.financialAccount, billingAccount.financialAccount) &&
-        Objects.equals(this.paymentPlan, billingAccount.paymentPlan) &&
-        Objects.equals(this.relatedParty, billingAccount.relatedParty) &&
-        Objects.equals(this.taxExemption, billingAccount.taxExemption) &&
-        Objects.equals(this.baseType, billingAccount.baseType) &&
-        Objects.equals(this.schemaLocation, billingAccount.schemaLocation) &&
-        Objects.equals(this.type, billingAccount.type);
+    FinancialAccount financialAccount = (FinancialAccount) o;
+    return Objects.equals(this.id, financialAccount.id) &&
+        Objects.equals(this.href, financialAccount.href) &&
+        Objects.equals(this.accountType, financialAccount.accountType) &&
+        Objects.equals(this.description, financialAccount.description) &&
+        Objects.equals(this.lastModified, financialAccount.lastModified) &&
+        Objects.equals(this.name, financialAccount.name) &&
+        Objects.equals(this.state, financialAccount.state) &&
+        Objects.equals(this.accountBalance, financialAccount.accountBalance) &&
+        Objects.equals(this.accountRelationship, financialAccount.accountRelationship) &&
+        Objects.equals(this.contact, financialAccount.contact) &&
+        Objects.equals(this.creditLimit, financialAccount.creditLimit) &&
+        Objects.equals(this.relatedParty, financialAccount.relatedParty) &&
+        Objects.equals(this.taxExemption, financialAccount.taxExemption) &&
+        Objects.equals(this.baseType, financialAccount.baseType) &&
+        Objects.equals(this.schemaLocation, financialAccount.schemaLocation) &&
+        Objects.equals(this.type, financialAccount.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, href, accountType, description, lastModified, name, paymentStatus, state, accountBalance, accountRelationship, billStructure, contact, creditLimit, defaultPaymentMethod, financialAccount, paymentPlan, relatedParty, taxExemption, baseType, schemaLocation, type);
+    return Objects.hash(id, href, accountType, description, lastModified, name, state, accountBalance, accountRelationship, contact, creditLimit, relatedParty, taxExemption, baseType, schemaLocation, type);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BillingAccount {\n");
+    sb.append("class FinancialAccount {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
@@ -617,16 +486,11 @@ public class BillingAccount   {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    lastModified: ").append(toIndentedString(lastModified)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    paymentStatus: ").append(toIndentedString(paymentStatus)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    accountBalance: ").append(toIndentedString(accountBalance)).append("\n");
     sb.append("    accountRelationship: ").append(toIndentedString(accountRelationship)).append("\n");
-    sb.append("    billStructure: ").append(toIndentedString(billStructure)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    creditLimit: ").append(toIndentedString(creditLimit)).append("\n");
-    sb.append("    defaultPaymentMethod: ").append(toIndentedString(defaultPaymentMethod)).append("\n");
-    sb.append("    financialAccount: ").append(toIndentedString(financialAccount)).append("\n");
-    sb.append("    paymentPlan: ").append(toIndentedString(paymentPlan)).append("\n");
     sb.append("    relatedParty: ").append(toIndentedString(relatedParty)).append("\n");
     sb.append("    taxExemption: ").append(toIndentedString(taxExemption)).append("\n");
     sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
@@ -640,7 +504,7 @@ public class BillingAccount   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

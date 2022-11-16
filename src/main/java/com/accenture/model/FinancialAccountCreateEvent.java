@@ -1,12 +1,13 @@
 package com.accenture.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.threeten.bp.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
+
+import java.time.OffsetDateTime;
 import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * The notification data structure
@@ -16,7 +17,7 @@ import javax.validation.Valid;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-11-06T21:16:01.493Z")
 
 
-public class BillingAccountStateChangeEvent   {
+public class FinancialAccountCreateEvent {
   @JsonProperty("id")
   private String id = null;
 
@@ -51,9 +52,9 @@ public class BillingAccountStateChangeEvent   {
   private OffsetDateTime timeOcurred = null;
 
   @JsonProperty("payload")
-  private BillingAccountStateChangeEventPayload payload = null;
+  private FinancialAccountCreateEventPayload payload = null;
 
-  public BillingAccountStateChangeEvent id(String id) {
+  public FinancialAccountCreateEvent id(String id) {
     this.id = id;
     return this;
   }
@@ -73,7 +74,7 @@ public class BillingAccountStateChangeEvent   {
     this.id = id;
   }
 
-  public BillingAccountStateChangeEvent href(String href) {
+  public FinancialAccountCreateEvent href(String href) {
     this.href = href;
     return this;
   }
@@ -93,7 +94,7 @@ public class BillingAccountStateChangeEvent   {
     this.href = href;
   }
 
-  public BillingAccountStateChangeEvent eventId(String eventId) {
+  public FinancialAccountCreateEvent eventId(String eventId) {
     this.eventId = eventId;
     return this;
   }
@@ -113,7 +114,7 @@ public class BillingAccountStateChangeEvent   {
     this.eventId = eventId;
   }
 
-  public BillingAccountStateChangeEvent eventTime(OffsetDateTime eventTime) {
+  public FinancialAccountCreateEvent eventTime(OffsetDateTime eventTime) {
     this.eventTime = eventTime;
     return this;
   }
@@ -134,7 +135,7 @@ public class BillingAccountStateChangeEvent   {
     this.eventTime = eventTime;
   }
 
-  public BillingAccountStateChangeEvent eventType(String eventType) {
+  public FinancialAccountCreateEvent eventType(String eventType) {
     this.eventType = eventType;
     return this;
   }
@@ -154,7 +155,7 @@ public class BillingAccountStateChangeEvent   {
     this.eventType = eventType;
   }
 
-  public BillingAccountStateChangeEvent correlationId(String correlationId) {
+  public FinancialAccountCreateEvent correlationId(String correlationId) {
     this.correlationId = correlationId;
     return this;
   }
@@ -174,7 +175,7 @@ public class BillingAccountStateChangeEvent   {
     this.correlationId = correlationId;
   }
 
-  public BillingAccountStateChangeEvent domain(String domain) {
+  public FinancialAccountCreateEvent domain(String domain) {
     this.domain = domain;
     return this;
   }
@@ -194,7 +195,7 @@ public class BillingAccountStateChangeEvent   {
     this.domain = domain;
   }
 
-  public BillingAccountStateChangeEvent title(String title) {
+  public FinancialAccountCreateEvent title(String title) {
     this.title = title;
     return this;
   }
@@ -214,7 +215,7 @@ public class BillingAccountStateChangeEvent   {
     this.title = title;
   }
 
-  public BillingAccountStateChangeEvent description(String description) {
+  public FinancialAccountCreateEvent description(String description) {
     this.description = description;
     return this;
   }
@@ -234,7 +235,7 @@ public class BillingAccountStateChangeEvent   {
     this.description = description;
   }
 
-  public BillingAccountStateChangeEvent priority(String priority) {
+  public FinancialAccountCreateEvent priority(String priority) {
     this.priority = priority;
     return this;
   }
@@ -254,7 +255,7 @@ public class BillingAccountStateChangeEvent   {
     this.priority = priority;
   }
 
-  public BillingAccountStateChangeEvent timeOcurred(OffsetDateTime timeOcurred) {
+  public FinancialAccountCreateEvent timeOcurred(OffsetDateTime timeOcurred) {
     this.timeOcurred = timeOcurred;
     return this;
   }
@@ -275,7 +276,7 @@ public class BillingAccountStateChangeEvent   {
     this.timeOcurred = timeOcurred;
   }
 
-  public BillingAccountStateChangeEvent payload(BillingAccountStateChangeEventPayload payload) {
+  public FinancialAccountCreateEvent payload(FinancialAccountCreateEventPayload payload) {
     this.payload = payload;
     return this;
   }
@@ -288,36 +289,36 @@ public class BillingAccountStateChangeEvent   {
 
   @Valid
 
-  public BillingAccountStateChangeEventPayload getPayload() {
+  public FinancialAccountCreateEventPayload getPayload() {
     return payload;
   }
 
-  public void setPayload(BillingAccountStateChangeEventPayload payload) {
+  public void setPayload(FinancialAccountCreateEventPayload payload) {
     this.payload = payload;
   }
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BillingAccountStateChangeEvent billingAccountStateChangeEvent = (BillingAccountStateChangeEvent) o;
-    return Objects.equals(this.id, billingAccountStateChangeEvent.id) &&
-        Objects.equals(this.href, billingAccountStateChangeEvent.href) &&
-        Objects.equals(this.eventId, billingAccountStateChangeEvent.eventId) &&
-        Objects.equals(this.eventTime, billingAccountStateChangeEvent.eventTime) &&
-        Objects.equals(this.eventType, billingAccountStateChangeEvent.eventType) &&
-        Objects.equals(this.correlationId, billingAccountStateChangeEvent.correlationId) &&
-        Objects.equals(this.domain, billingAccountStateChangeEvent.domain) &&
-        Objects.equals(this.title, billingAccountStateChangeEvent.title) &&
-        Objects.equals(this.description, billingAccountStateChangeEvent.description) &&
-        Objects.equals(this.priority, billingAccountStateChangeEvent.priority) &&
-        Objects.equals(this.timeOcurred, billingAccountStateChangeEvent.timeOcurred) &&
-        Objects.equals(this.payload, billingAccountStateChangeEvent.payload);
+    FinancialAccountCreateEvent financialAccountCreateEvent = (FinancialAccountCreateEvent) o;
+    return Objects.equals(this.id, financialAccountCreateEvent.id) &&
+        Objects.equals(this.href, financialAccountCreateEvent.href) &&
+        Objects.equals(this.eventId, financialAccountCreateEvent.eventId) &&
+        Objects.equals(this.eventTime, financialAccountCreateEvent.eventTime) &&
+        Objects.equals(this.eventType, financialAccountCreateEvent.eventType) &&
+        Objects.equals(this.correlationId, financialAccountCreateEvent.correlationId) &&
+        Objects.equals(this.domain, financialAccountCreateEvent.domain) &&
+        Objects.equals(this.title, financialAccountCreateEvent.title) &&
+        Objects.equals(this.description, financialAccountCreateEvent.description) &&
+        Objects.equals(this.priority, financialAccountCreateEvent.priority) &&
+        Objects.equals(this.timeOcurred, financialAccountCreateEvent.timeOcurred) &&
+        Objects.equals(this.payload, financialAccountCreateEvent.payload);
   }
 
   @Override
@@ -328,7 +329,7 @@ public class BillingAccountStateChangeEvent   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BillingAccountStateChangeEvent {\n");
+    sb.append("class FinancialAccountCreateEvent {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
@@ -350,7 +351,7 @@ public class BillingAccountStateChangeEvent   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

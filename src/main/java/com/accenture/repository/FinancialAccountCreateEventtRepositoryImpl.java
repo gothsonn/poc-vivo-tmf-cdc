@@ -1,6 +1,7 @@
 package com.accenture.repository;
 
-import com.accenture.model.BillingAccount;
+
+import com.accenture.model.FinancialAccountCreateEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -12,38 +13,36 @@ import java.net.URI;
 
 @Slf4j
 @Repository
-public class CalledNewEndpointRepositoryImpl implements CalledNewEndpointRepository{
+public class FinancialAccountCreateEventtRepositoryImpl implements FinancialAccountCreateEventtRepository {
 
     private String endpointUri;
     private RestTemplate restTemplate;
 
-    public CalledNewEndpointRepositoryImpl(
+    public FinancialAccountCreateEventtRepositoryImpl(
             RestTemplate restTemplate,
-            @Value("${endpoint.calling.kafka}") String endpointUri
+            @Value("${endpoint.financial.account.create.event}") String endpointUri
     ){
         this.restTemplate = restTemplate;
         this.endpointUri = endpointUri;
     }
 
     @Override
-    public BillingAccount findById(BillingAccount billingAccount) {
+    public FinancialAccountCreateEvent createFinanceAccount(FinancialAccountCreateEvent financialAccountCreateEvent) {
         final URI url = UriComponentsBuilder.fromHttpUrl(this.endpointUri).build().toUri();
-        log.debug(":: Called FinById {}", url);
-
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<BillingAccount> requestHttpEntity = new HttpEntity<>(billingAccount, headers);
-            ResponseEntity<BillingAccount> responseEntity = restTemplate.exchange(
+            HttpEntity<FinancialAccountCreateEvent> requestHttpEntity = new HttpEntity<>(financialAccountCreateEvent, headers);
+            ResponseEntity<FinancialAccountCreateEvent> responseEntity = restTemplate.exchange(
                     url,
                     HttpMethod.POST,
                     requestHttpEntity,
-                    BillingAccount.class
+                    FinancialAccountCreateEvent.class
             );
             return responseEntity.getBody();
         } catch (Exception e) {
-            log.error("Fail invocation Invoke to findById for {}", url, e);
-            throw new Error("Fail invocation Invoke to findById for {}", e);
+            log.error("Fail invocation Invoke to FinancialAccountCreateEvent for {}", url, e);
+            throw new Error("Fail invocation Invoke to FinancialAccountCreateEvent for {}", e);
         }
     }
 }
