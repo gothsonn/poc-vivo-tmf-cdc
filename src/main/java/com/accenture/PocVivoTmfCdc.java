@@ -10,12 +10,14 @@ import org.springframework.context.annotation.ComponentScan;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan(basePackages = { "com.accenture", "com.accenture.api" , "com.accenture.configuration"})
+@EnableScheduling
 public class PocVivoTmfCdc implements CommandLineRunner {
 
     @Override
@@ -45,6 +47,5 @@ public class PocVivoTmfCdc implements CommandLineRunner {
         public int getExitCode() {
             return 10;
         }
-
     }
 }

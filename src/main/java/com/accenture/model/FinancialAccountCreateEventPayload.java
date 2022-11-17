@@ -1,11 +1,12 @@
 package com.accenture.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
+
 import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * The event data structure
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-11-06T21:16:01.493Z")
 
 
-public class FinancialAccountCreateEventPayload   {
+public class FinancialAccountCreateEventPayload {
   @JsonProperty("financialAccount")
   private FinancialAccount financialAccount = null;
 
@@ -42,7 +43,7 @@ public class FinancialAccountCreateEventPayload   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -72,7 +73,7 @@ public class FinancialAccountCreateEventPayload   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

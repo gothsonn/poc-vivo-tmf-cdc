@@ -5,18 +5,11 @@
  */
 package com.accenture.api;
 
-import com.accenture.model.Error;
-import com.accenture.model.FinancialAccount;
-import com.accenture.model.FinancialAccountCreate;
-import com.accenture.model.FinancialAccountUpdate;
+import com.accenture.model.*;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,12 +17,12 @@ import java.util.List;
 
 @Validated
 @Api(value = "financialAccount", description = "the financialAccount API")
-@RequestMapping(value = "/tmf-api/accountManagement/v4/")
+@RequestMapping(value = "/accountManagement")
 public interface FinancialAccountApi {
 
-    @ApiOperation(value = "Creates a FinancialAccount", nickname = "createFinancialAccount", notes = "This operation creates a FinancialAccount entity.", response = FinancialAccount.class, tags={ "financialAccount", })
+    @ApiOperation(value = "Creates a FinancialAccount", nickname = "createFinancialAccount", notes = "This operation creates a FinancialAccount entity.", response = FinancialAccountCreateEvent.class, tags={ "financialAccount", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = FinancialAccount.class),
+        @ApiResponse(code = 201, message = "Created", response = FinancialAccountCreateEvent.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
         @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
@@ -40,7 +33,13 @@ public interface FinancialAccountApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<FinancialAccount> createFinancialAccount(@ApiParam(value = "The FinancialAccount to be created" ,required=true )  @Valid @RequestBody FinancialAccountCreate financialAccount);
+    ResponseEntity<FinancialAccountCreateEvent> createFinancialAccount(
+            @ApiParam(value = "The FinancialAccount to be created" ,required=true )
+            @Valid @RequestBody FinancialAccount financialAccount
+    );
+
+
+
 
 
     @ApiOperation(value = "Deletes a FinancialAccount", nickname = "deleteFinancialAccount", notes = "This operation deletes a FinancialAccount entity.", tags={ "financialAccount", })
@@ -57,7 +56,42 @@ public interface FinancialAccountApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> deleteFinancialAccount(@ApiParam(value = "Identifier of the FinancialAccount",required=true) @PathVariable("id") String id);
+    ResponseEntity<Void> deleteFinancialAccount(
+            @ApiParam(value = "Identifier of the FinancialAccount",required=true)
+            @PathVariable("id") String id
+    );
+
+
+
+
+
+
+    @ApiOperation(value = "Creates a FinancialAccount", nickname = "createFinancialAccount", notes = "This operation creates a FinancialAccount entity.", response = FinancialAccountCreateEvent.class, tags={ "financialAccount", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Created", response = FinancialAccountCreateEvent.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+            @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+            @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+            @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/api", method = RequestMethod.GET)
+    ResponseEntity<FinancialAccountCreateEvent> createFinancial();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @ApiOperation(value = "List or find FinancialAccount objects", nickname = "listFinancialAccount", notes = "This operation list or find FinancialAccount entities", response = FinancialAccount.class, responseContainer = "List", tags={ "financialAccount", })
@@ -74,7 +108,14 @@ public interface FinancialAccountApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
-    ResponseEntity<List<FinancialAccount>> listFinancialAccount(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit);
+    ResponseEntity<List<FinancialAccount>> listFinancialAccount(
+            @ApiParam(value = "Comma-separated properties to be provided in response")
+            @Valid @RequestParam(value = "fields", required = false) String fields,
+            @ApiParam(value = "Requested index for start of resources to be provided in response")
+            @Valid @RequestParam(value = "offset", required = false) Integer offset,
+            @ApiParam(value = "Requested number of resources to be provided in response")
+            @Valid @RequestParam(value = "limit", required = false) Integer limit
+    );
 
 
     @ApiOperation(value = "Updates partially a FinancialAccount", nickname = "patchFinancialAccount", notes = "This operation updates partially a FinancialAccount entity.", response = FinancialAccount.class, tags={ "financialAccount", })
@@ -91,7 +132,12 @@ public interface FinancialAccountApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.PATCH)
-    ResponseEntity<FinancialAccount> patchFinancialAccount(@ApiParam(value = "Identifier of the FinancialAccount",required=true) @PathVariable("id") String id,@ApiParam(value = "The FinancialAccount to be updated" ,required=true )  @Valid @RequestBody FinancialAccountUpdate financialAccount);
+    ResponseEntity<FinancialAccount> patchFinancialAccount(
+            @ApiParam(value = "Identifier of the FinancialAccount",required=true)
+            @PathVariable("id") String id,
+            @ApiParam(value = "The FinancialAccount to be updated" ,required=true )
+            @Valid @RequestBody FinancialAccountUpdate financialAccount
+    );
 
 
     @ApiOperation(value = "Retrieves a FinancialAccount by ID", nickname = "retrieveFinancialAccount", notes = "This operation retrieves a FinancialAccount entity. Attribute selection is enabled for all first level attributes.", response = FinancialAccount.class, tags={ "financialAccount", })
@@ -108,6 +154,11 @@ public interface FinancialAccountApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
-    ResponseEntity<FinancialAccount> retrieveFinancialAccount(@ApiParam(value = "Identifier of the FinancialAccount",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields);
+    ResponseEntity<FinancialAccount> retrieveFinancialAccount(
+            @ApiParam(value = "Identifier of the FinancialAccount",required=true)
+            @PathVariable("id") String id,
+            @ApiParam(value = "Comma-separated properties to provide in response")
+            @Valid @RequestParam(value = "fields", required = false) String fields
+    );
 
 }

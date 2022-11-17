@@ -1,23 +1,27 @@
 package com.accenture.api;
 
-import com.accenture.model.FinancialAccount;
-import com.accenture.model.FinancialAccountUpdate;
-import com.accenture.model.FinancialAccountCreate;
+import com.accenture.model.*;
+import com.accenture.repository.FinancialAccountCreateEventtRepository;
+import com.accenture.service.MockApiRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.time.OffsetDateTime;
 
-import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-11-06T21:16:01.493Z")
 
 @Controller
@@ -29,32 +33,92 @@ public class FinancialAccountApiController implements FinancialAccountApi {
 
     private final HttpServletRequest request;
 
-    @org.springframework.beans.factory.annotation.Autowired
-    public FinancialAccountApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    private final FinancialAccountCreateEventtRepository calledNewEndpoint;
+
+    private final MockApiRepository mockApiRepository;
+
+    @Autowired
+    public FinancialAccountApiController(ObjectMapper objectMapper, HttpServletRequest request, FinancialAccountCreateEventtRepository calledNewEndpoint, MockApiRepository mockApiRepository) {
         this.objectMapper = objectMapper;
         this.request = request;
+        this.calledNewEndpoint = calledNewEndpoint;
+        this.mockApiRepository = mockApiRepository;
     }
 
-    public ResponseEntity<FinancialAccount> createFinancialAccount(@ApiParam(value = "The FinancialAccount to be created" ,required=true )  @Valid @RequestBody FinancialAccountCreate financialAccount) {
+    public ResponseEntity<FinancialAccountCreateEvent> createFinancialAccount(
+            @ApiParam(value = "The FinancialAccount to be created" , required=true )
+            @Valid @RequestBody FinancialAccount financialAccount
+    ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<FinancialAccount>(objectMapper.readValue("{\"empty\": false}", FinancialAccount.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<FinancialAccount>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
 
-        return new ResponseEntity<FinancialAccount>(HttpStatus.NOT_IMPLEMENTED);
+            FinancialAccountCreateEvent financialAccountCreateEvent = new FinancialAccountCreateEvent();
+            FinancialAccountCreateEventPayload financialAccountCreateEventPayload = new FinancialAccountCreateEventPayload();
+            var financialAccountConvert = objectMapper.convertValue(financialAccount, FinancialAccount.class);
+            OffsetDateTime offsetDateTime = OffsetDateTime.now();
+
+            financialAccountConvert.setId(UUID.randomUUID().toString());
+            financialAccountConvert.setHref("finalcialAccount");
+            financialAccountCreateEventPayload.setFinancialAccount(financialAccountConvert);
+
+            financialAccountCreateEvent.setId(UUID.randomUUID().toString());
+            financialAccountCreateEvent.setHref("href");
+            financialAccountCreateEvent.setEventId("eventId");
+            financialAccountCreateEvent.setEventTime(offsetDateTime);
+            financialAccountCreateEvent.setEventType("eventType");
+            financialAccountCreateEvent.setCorrelationId(UUID.randomUUID().toString());
+            financialAccountCreateEvent.setDomain("string");
+            financialAccountCreateEvent.setTitle("string");
+            financialAccountCreateEvent.setDescription("string");
+            financialAccountCreateEvent.setPriority("string");
+            financialAccountCreateEvent.setTimeOcurred(offsetDateTime);
+            financialAccountCreateEvent.setPayload(financialAccountCreateEventPayload);
+
+
+            calledNewEndpoint.createFinanceAccount(financialAccountCreateEvent);
+
+            return new ResponseEntity<FinancialAccountCreateEvent>(financialAccountCreateEvent, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<FinancialAccountCreateEvent>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Void> deleteFinancialAccount(@ApiParam(value = "Identifier of the FinancialAccount",required=true) @PathVariable("id") String id) {
+
+
+
+
+
+    public ResponseEntity<FinancialAccountCreateEvent> createFinancial() {
+
+        var financialAccountCreateEvent = mockApiRepository.createFinance();
+
+        return new ResponseEntity<FinancialAccountCreateEvent>(financialAccountCreateEvent, HttpStatus.OK);
+    }
+
+
+
+
+
+
+
+
+
+
+    public ResponseEntity<Void> deleteFinancialAccount(
+            @ApiParam(value = "Identifier of the FinancialAccount", required=true)
+            @PathVariable("id") String id
+    ) {
         String accept = request.getHeader("Accept");
         return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<List<FinancialAccount>> listFinancialAccount(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+    public ResponseEntity<List<FinancialAccount>> listFinancialAccount(
+            @ApiParam(value = "Comma-separated properties to be provided in response")
+            @Valid @RequestParam(value = "fields", required = false) String fields,
+            @ApiParam(value = "Requested index for start of resources to be provided in response")
+            @Valid @RequestParam(value = "offset", required = false) Integer offset,
+            @ApiParam(value = "Requested number of resources to be provided in response")
+            @Valid @RequestParam(value = "limit", required = false) Integer limit
+    ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -64,11 +128,15 @@ public class FinancialAccountApiController implements FinancialAccountApi {
                 return new ResponseEntity<List<FinancialAccount>>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-
         return new ResponseEntity<List<FinancialAccount>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<FinancialAccount> patchFinancialAccount(@ApiParam(value = "Identifier of the FinancialAccount",required=true) @PathVariable("id") String id,@ApiParam(value = "The FinancialAccount to be updated" ,required=true )  @Valid @RequestBody FinancialAccountUpdate financialAccount) {
+    public ResponseEntity<FinancialAccount> patchFinancialAccount(
+            @ApiParam(value = "Identifier of the FinancialAccount",required=true)
+            @PathVariable("id") String id,
+            @ApiParam(value = "The FinancialAccount to be updated" ,required=true )
+            @Valid @RequestBody FinancialAccountUpdate financialAccount
+    ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -78,11 +146,15 @@ public class FinancialAccountApiController implements FinancialAccountApi {
                 return new ResponseEntity<FinancialAccount>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-
         return new ResponseEntity<FinancialAccount>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<FinancialAccount> retrieveFinancialAccount(@ApiParam(value = "Identifier of the FinancialAccount",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+    public ResponseEntity<FinancialAccount> retrieveFinancialAccount(
+            @ApiParam(value = "Identifier of the FinancialAccount",required=true)
+            @PathVariable("id") String id,
+            @ApiParam(value = "Comma-separated properties to provide in response")
+            @Valid @RequestParam(value = "fields", required = false) String fields
+    ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -92,7 +164,6 @@ public class FinancialAccountApiController implements FinancialAccountApi {
                 return new ResponseEntity<FinancialAccount>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-
         return new ResponseEntity<FinancialAccount>(HttpStatus.NOT_IMPLEMENTED);
     }
 
