@@ -20,13 +20,13 @@ public class SwaggerDocumentationConfig {
 
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Account Management")
-                .description("Poc Vivo TMf CDC")
+                .title("Poc Vivo TMF CDC")
+                .description("Account Management")
                 .license("")
                 .licenseUrl("http://unlicense.org")
                 .termsOfServiceUrl("")
                 .version("4.0.0")
-                .contact(new Contact("Accenture", "", ""))
+                .contact(new Contact("ACCENTURE", "", ""))
                 .build();
     }
 
@@ -34,8 +34,7 @@ public class SwaggerDocumentationConfig {
     public Docket customImplementation() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.accenture"))
                 .build()
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
