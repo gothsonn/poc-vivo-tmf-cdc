@@ -1,4 +1,4 @@
-package com.accenture.service;
+package com.accenture.repository;
 
 import com.accenture.model.FinancialAccountCreateEvent;
 

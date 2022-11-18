@@ -1,8 +1,8 @@
 package com.accenture.api;
 
 import com.accenture.model.*;
-import com.accenture.repository.FinancialAccountCreateEventtRepository;
-import com.accenture.service.MockApiRepository;
+import com.accenture.repository.FinancialAccountCreateEventRepository;
+import com.accenture.repository.MockApiRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
@@ -33,12 +33,12 @@ public class FinancialAccountApiController implements FinancialAccountApi {
 
     private final HttpServletRequest request;
 
-    private final FinancialAccountCreateEventtRepository calledNewEndpoint;
+    private final FinancialAccountCreateEventRepository calledNewEndpoint;
 
     private final MockApiRepository mockApiRepository;
 
     @Autowired
-    public FinancialAccountApiController(ObjectMapper objectMapper, HttpServletRequest request, FinancialAccountCreateEventtRepository calledNewEndpoint, MockApiRepository mockApiRepository) {
+    public FinancialAccountApiController(ObjectMapper objectMapper, HttpServletRequest request, FinancialAccountCreateEventRepository calledNewEndpoint, MockApiRepository mockApiRepository) {
         this.objectMapper = objectMapper;
         this.request = request;
         this.calledNewEndpoint = calledNewEndpoint;

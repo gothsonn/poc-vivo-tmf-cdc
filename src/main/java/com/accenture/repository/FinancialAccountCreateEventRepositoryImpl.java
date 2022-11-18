@@ -13,14 +13,14 @@ import java.net.URI;
 
 @Slf4j
 @Repository
-public class FinancialAccountCreateEventtRepositoryImpl implements FinancialAccountCreateEventtRepository {
+public class FinancialAccountCreateEventRepositoryImpl implements FinancialAccountCreateEventRepository {
 
     private String endpointUri;
     private RestTemplate restTemplate;
 
-    public FinancialAccountCreateEventtRepositoryImpl(
+    public FinancialAccountCreateEventRepositoryImpl(
             RestTemplate restTemplate,
-            @Value("${endpoint.financial.account.create.event}") String endpointUri
+            @Value("${endpoint.financial.account.create.event.mock}") String endpointUri
     ){
         this.restTemplate = restTemplate;
         this.endpointUri = endpointUri;
@@ -35,7 +35,7 @@ public class FinancialAccountCreateEventtRepositoryImpl implements FinancialAcco
             HttpEntity<FinancialAccountCreateEvent> requestHttpEntity = new HttpEntity<>(financialAccountCreateEvent, headers);
             ResponseEntity<FinancialAccountCreateEvent> responseEntity = restTemplate.exchange(
                     url,
-                    HttpMethod.POST,
+                    HttpMethod.GET,
                     requestHttpEntity,
                     FinancialAccountCreateEvent.class
             );

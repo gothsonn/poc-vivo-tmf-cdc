@@ -1,6 +1,7 @@
 package com.accenture.synchronizer;
 
 import com.accenture.model.FinancialAccountCreateEvent;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,7 +24,7 @@ public class CdcSynchronizer {
     public void synchronize() {
         log.info("About to run the sync...");
         
-        final URI url = UriComponentsBuilder.fromHttpUrl("${endpoint.financial.account.create.event.mock}").build().toUri();
+        final URI url = UriComponentsBuilder.fromHttpUrl("http://localhost:8099/accountManagement/api").build().toUri();
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
