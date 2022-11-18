@@ -35,7 +35,7 @@ public class FinancialAccountCreateEventRepositoryImpl implements FinancialAccou
             HttpEntity<FinancialAccountCreateEvent> requestHttpEntity = new HttpEntity<>(financialAccountCreateEvent, headers);
             ResponseEntity<FinancialAccountCreateEvent> responseEntity = restTemplate.exchange(
                     url,
-                    HttpMethod.GET,
+                    HttpMethod.POST,
                     requestHttpEntity,
                     FinancialAccountCreateEvent.class
             );

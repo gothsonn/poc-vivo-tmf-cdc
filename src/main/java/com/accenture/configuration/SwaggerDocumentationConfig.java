@@ -4,35 +4,39 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-11-06T21:16:01.493Z")
 
 @Configuration
+@EnableSwagger2
 public class SwaggerDocumentationConfig {
 
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("Account Management")
-            .description("This is Swagger UI environment generated for the TMF Account Management specification")
-            .license("")
-            .licenseUrl("http://unlicense.org")
-            .termsOfServiceUrl("")
-            .version("4.0.0")
-            .contact(new Contact("","", ""))
-            .build();
+                .title("Account Management")
+                .description("Poc Vivo TMf CDC")
+                .license("")
+                .licenseUrl("http://unlicense.org")
+                .termsOfServiceUrl("")
+                .version("4.0.0")
+                .contact(new Contact("Accenture", "", ""))
+                .build();
     }
 
     @Bean
-    public Docket customImplementation(){
+    public Docket customImplementation() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                    .apis(RequestHandlerSelectors.basePackage("io.swagger.api"))
-                    .build()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build()
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
                 .apiInfo(apiInfo());
