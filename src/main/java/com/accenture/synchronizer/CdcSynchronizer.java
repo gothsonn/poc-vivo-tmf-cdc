@@ -44,7 +44,7 @@ public class CdcSynchronizer {
                     FinancialAccountCreateEvent.class
             );
 
-            //calledNewEndpoint.createFinanceAccount(responseEntity.getBody());
+            calledNewEndpoint.createFinanceAccount(responseEntity.getBody());
             System.out.println(responseEntity.getBody());
 
         } catch (Exception e) {
