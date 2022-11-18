@@ -20,7 +20,7 @@ public class FinancialAccountCreateEventRepositoryImpl implements FinancialAccou
 
     public FinancialAccountCreateEventRepositoryImpl(
             RestTemplate restTemplate,
-            @Value("${endpoint.financial.account.create.event.mock}") String endpointUri
+            @Value("${endpoint.financial.account.create.event}") String endpointUri
     ){
         this.restTemplate = restTemplate;
         this.endpointUri = endpointUri;
