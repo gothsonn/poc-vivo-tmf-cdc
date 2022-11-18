@@ -1,7 +1,10 @@
 package com.accenture.synchronizer;
 
 import com.accenture.model.FinancialAccountCreateEvent;
+import com.accenture.repository.FinancialAccountCreateEventtRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -13,7 +16,12 @@ import java.net.URI;
 @Component
 @Slf4j
 public class CdcSynchronizer {
+
+    @Value("${endpoint.financial.account.create.event.mock}")
+    private String urlCdc;
     private RestTemplate restTemplate;
+    @Autowired
+    private FinancialAccountCreateEventtRepository calledNewEndpoint;
 
     public CdcSynchronizer(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -23,7 +31,7 @@ public class CdcSynchronizer {
     public void synchronize() {
         log.info("About to run the sync...");
         
-        final URI url = UriComponentsBuilder.fromHttpUrl("${endpoint.financial.account.create.event.mock}").build().toUri();
+        final URI url = UriComponentsBuilder.fromHttpUrl(urlCdc).build().toUri();
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -35,6 +43,7 @@ public class CdcSynchronizer {
                     FinancialAccountCreateEvent.class
             );
 
+            calledNewEndpoint.createFinanceAccount(responseEntity.getBody());
             System.out.println(responseEntity.getBody());
 
         } catch (Exception e) {
