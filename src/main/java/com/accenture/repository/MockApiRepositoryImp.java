@@ -1,9 +1,7 @@
-package com.accenture.service;
+package com.accenture.repository;
 
 import com.accenture.model.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;

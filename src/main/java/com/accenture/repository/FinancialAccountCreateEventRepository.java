@@ -2,6 +2,6 @@ package com.accenture.repository;
 
 import com.accenture.model.FinancialAccountCreateEvent;
 
-public interface FinancialAccountCreateEventtRepository {
+public interface FinancialAccountCreateEventRepository {
     FinancialAccountCreateEvent createFinanceAccount(FinancialAccountCreateEvent financialAccountCreateEvent);
 }
