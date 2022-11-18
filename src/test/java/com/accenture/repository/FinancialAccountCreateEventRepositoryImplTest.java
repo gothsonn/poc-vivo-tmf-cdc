@@ -25,7 +25,6 @@ class FinancialAccountCreateEventRepositoryImplTest {
     @Autowired
     private MockMvc mockMvc;
 
-
     @Test
     void testCreateFinanceAccount() throws Exception {
         // Setup
