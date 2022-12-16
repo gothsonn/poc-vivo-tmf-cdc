@@ -27,7 +27,7 @@ public class CdcSynchronizer {
         this.restTemplate = restTemplate;
     }
 
-    @Scheduled(fixedDelay = 45000)
+//    @Scheduled(fixedDelay = 45000)
     public void synchronize() {
         log.info("About to run the sync...");
         
